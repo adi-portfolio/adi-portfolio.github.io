@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adi — Graphic, Brand & Visual Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F5F2EE;
+    --ink: #1A1A1A;
+    --amber: #C8873A;
+    --amber-light: #E8A855;
+    --muted: #6B6560;
+    --rule: #D8D3CD;
+    --dark: #141210;
+    --card-hover: #EDEAE5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amber); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: -2rem;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(12rem, 22vw, 22rem);
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    animation: fadeIn 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: slideUp 1s ease 0.3s forwards;
+    opacity: 0;
+  }
+
+  .hero-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .hero-name span { font-style: italic; color: var(--amber); }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+    margin-top: 1rem;
+  }
+
+  .hero-tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 38ch;
+    line-height: 1.7;
+  }
+
+  .hero-meta { text-align: right; }
+  .hero-meta p {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .scroll-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .scroll-cta::after { content: '↓'; font-size: 1rem; transition: transform 0.3s; }
+  .scroll-cta:hover { gap: 1.25rem; }
+  .scroll-cta:hover::after { transform: translateY(4px); }
+
+  /* SECTION */
+  section { padding: 7rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-rule { flex: 1; height: 1px; background: var(--rule); }
+
+  /* ABOUT */
+  .about {
+    background: var(--dark);
+    color: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .about::before {
+    content: 'DESIGN';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(8rem, 15vw, 15rem);
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,135,58,0.15);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about .section-title { color: rgba(245,242,238,0.4); }
+  .about .section-rule { background: rgba(245,242,238,0.1); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .about-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--bg);
+  }
+  .about-headline em { font-style: italic; color: var(--amber); }
+
+  .about-body p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(245,242,238,0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.5rem; }
+  .about-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(200,135,58,0.4);
+    color: var(--amber);
+    border-radius: 2px;
+  }
+
+  /* WORK GRID */
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--ink);
+  }
+
+  .project-card:first-child,
+  .project-card.full-width { grid-column: 1 / -1; }
+
+  .project-visual {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .project-card:first-child .project-visual,
+  .project-card.full-width .project-visual { aspect-ratio: 21/9; }
+  .project-card:hover .project-visual { transform: scale(1.03); }
+
+  .p-cast   { background: linear-gradient(135deg, #1a2744 0%, #2d4a7a 50%, #1a3355 100%); }
+  .p-sket   { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d1a00 100%); }
+  .p-squigl { background: linear-gradient(135deg, #f0ebe3 0%, #e8dfd4 50%, #d4c9bc 100%); }
+  .p-brinda { background: linear-gradient(135deg, #2a1520 0%, #4a2535 50%, #1a0f15 100%); }
+  .p-detroit{ background: linear-gradient(135deg, #1a2a1a 0%, #2d4a2d 50%, #1a3020 100%); }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    transition: background 0.4s;
+  }
+  .project-card:hover .project-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.1) 100%);
+  }
+
+  .project-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .project-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    background: rgba(200,135,58,0.9);
+    color: #fff;
+    border-radius: 2px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .project-sub { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 0.4rem; }
+
+  .project-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .project-card:hover .project-cta { opacity: 1; transform: translateY(0); }
+
+  .visual-wordmark {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 7rem);
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: #fff;
+    opacity: 0.15;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .img-note {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    border: 1px dashed rgba(255,255,255,0.15);
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
+    z-index: 1;
+  }
+
+  /* PROJECT IMAGE (when you add real images) */
+  .project-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .skill-group h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .skill-list li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .skill-list li::before {
+    content: '';
+    display: block;
+    width: 0.4rem;
+    height: 1px;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+
+  /* ARTWORK */
+  .artwork { background: var(--dark); padding-bottom: 10rem; }
+  .artwork .section-title { color: rgba(245,242,238,0.4); }
+  .artwork .section-rule { background: rgba(245,242,238,0.1); }
+
+  .artwork-intro { max-width: 55ch; margin-bottom: 4rem; }
+  .artwork-intro p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245,242,238,0.65);
+    line-height: 1.5;
+  }
+  .artwork-intro p span { color: var(--amber); }
+
+  .artwork-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+  }
+
+  .artwork-cell {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    aspect-ratio: 16/9;
+  }
+
+  /* Featured ultrawide — spans 8 of 12 cols */
+  .artwork-cell:nth-child(1) {
+    grid-column: span 8;
+    aspect-ratio: 21/9;
+  }
+  /* Tall accent beside it */
+  .artwork-cell:nth-child(2) {
+    grid-column: span 4;
+    aspect-ratio: 4/5;
+  }
+  /* Three landscape cells on bottom row */
+  .artwork-cell:nth-child(3) { grid-column: span 4; }
+  .artwork-cell:nth-child(4) { grid-column: span 4; }
+  .artwork-cell:nth-child(5) { grid-column: span 4; }
+
+  .artwork-cell img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+  .artwork-cell:hover img { transform: scale(1.05); }
+
+  .artwork-cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .artwork-cell:hover::after { opacity: 1; }
+
+  .artwork-cell-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    z-index: 2;
+  }
+
+  .art-manga   { background: linear-gradient(160deg, #0f0f0f 0%, #1a1520 100%); }
+  .art-ink     { background: linear-gradient(160deg, #0a0a0a 0%, #151515 100%); }
+  .art-copic   { background: linear-gradient(160deg, #1a1510 0%, #2a2010 100%); }
+  .art-pencil  { background: linear-gradient(160deg, #1a1a18 0%, #252520 100%); }
+  .art-digital { background: linear-gradient(160deg, #0f1520 0%, #1a2535 100%); }
+
+  .artwork-note {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.15);
+    border: 1px dashed rgba(255,255,255,0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 2px;
+  }
+
+  /* CONTACT */
+  .contact {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 11rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+    color: var(--ink);
+    margin-bottom: 3rem;
+  }
+  .contact-big em { font-style: italic; color: var(--amber); }
+
+  .contact-links {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+
+  .contact-link {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--amber); }
+  .contact-link span { color: var(--amber); }
+
+  .contact-flag { margin-left: auto; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); text-align: right; }
+  .contact-flag strong { display: block; color: var(--ink); font-weight: 500; }
+
+  footer {
+    background: var(--ink);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p { font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(245,242,238,0.3); text-transform: uppercase; }
+
+  /* ============================================
+     LIGHTBOX / MODAL
+  ============================================ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,8,6,0.97);
+    z-index: 1000;
+    display: flex;
+    align-items: stretch;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    overflow: hidden;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,238,0.5);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    background: none;
+    border: none;
+  }
+  .modal-close:hover { color: var(--amber); }
+  .modal-close::before { content: '✕'; font-size: 1rem; }
+
+  .modal-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+  }
+  .modal-overlay.open .modal-inner { transform: translateY(0); }
+
+  /* Left: image gallery */
+  .modal-gallery {
+    position: relative;
+    background: #0a0806;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-main-img {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-main-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Placeholder for main image */
+  .modal-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-img-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .modal-img-placeholder-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    text-align: center;
+    z-index: 1;
+    line-height: 2;
+  }
+
+  .modal-thumbs {
+    display: flex;
+    gap: 2px;
+    height: 90px;
+    flex-shrink: 0;
+  }
+
+  .modal-thumb {
+    flex: 0 0 auto;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+  .modal-thumb.active { opacity: 1; border-bottom-color: var(--amber); }
+  .modal-thumb:hover { opacity: 0.8; }
+
+  .modal-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .modal-thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-thumb-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    padding: 0.25rem;
+    line-height: 1.4;
+  }
+
+  /* Right: case study info */
+  .modal-info {
+    padding: 4rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .modal-project-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .modal-project-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--bg);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.82rem;
+    color: rgba(245,242,238,0.4);
+    letter-spacing: 0.05em;
+    margin-bottom: 2.5rem;
+  }
+
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .modal-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(200,135,58,0.5);
+    color: var(--amber);
+    border-radius: 2px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+  }
+
+  .modal-section { margin-bottom: 2rem; }
+  .modal-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,238,0.35);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .modal-section p {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: rgba(245,242,238,0.7);
+    font-weight: 300;
+  }
+
+  .modal-deliverables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .modal-deliverable {
+    font-size: 0.75rem;
+    color: rgba(245,242,238,0.6);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .modal-deliverable::before { content: '→'; color: var(--amber); font-size: 0.7rem; }
+
+  .modal-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .modal-nav-btn {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,242,238,0.4);
+    cursor: pointer;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .modal-nav-btn:hover { color: var(--amber); }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    section { padding: 5rem 2rem; }
+    .hero { padding: 0 2rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .project-card:first-child,
+    .project-card.full-width { grid-column: 1; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .artwork-grid { grid-template-columns: repeat(2, 1fr); }
+    .artwork-cell:first-child { grid-column: span 2; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .hero-meta { text-align: left; }
+    .nav-links { display: none; }
+    .contact-flag { display: none; }
+    .modal-inner { grid-template-columns: 1fr; }
+    .modal-gallery { height: 55vh; }
+    .modal-info { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ADI</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#artwork">Art</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg-text">ADI</div>
+  <div class="hero-content">
+    <p class="hero-label">Brand &amp; Visual Designer</p>
+    <h1 class="hero-name">Where architecture<br>meets <span>visual identity.</span></h1>
+    <div class="hero-bottom">
+      <p class="hero-tagline">
+        I build brands from concept to completion — strategy, identity, print, and digital — with the structural precision of an architect and the eye of an artist.
+      </p>
+      <div class="hero-meta">
+        <p>Based in Fukuoka, Japan</p>
+        <p>Available for remote work</p>
+        <p>EN · JP · TA · KN</p>
+        <a href="#work" class="scroll-cta">View Selected Work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <span class="section-title">About</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid reveal">
+    <div>
+      <h2 class="about-headline">Architect<br>by training.<br><em>Designer</em><br>by nature.</h2>
+    </div>
+    <div class="about-body">
+      <p>I hold a Master of Architecture (Urban Design) and a Bachelor of Architecture — disciplines that trained me to think in systems, communicate visually, and design from the ground up. Over the past decade, I've applied that thinking to brand identity, print design, web, and product branding across Japan, India, and the United States.</p>
+      <p>Based in Fukuoka, I work closely with Japanese clients and understand the precision, restraint, and cultural nuance that Japanese market design demands. I'm equally at home leading a full rebrand for a tech startup as I am sketching a logo concept with ink on paper before touching the screen.</p>
+      <p>I've been drawing for over 30 years. That foundation in analog craft shows up in everything I make.</p>
+      <div class="about-tags">
+        <span class="about-tag">Brand Identity</span>
+        <span class="about-tag">Print Design</span>
+        <span class="about-tag">Web Design</span>
+        <span class="about-tag">Urban Branding</span>
+        <span class="about-tag">Illustration</span>
+        <span class="about-tag">Japan Market</span>
+        <span class="about-tag">Japanese Speaker</span>
+        <span class="about-tag">30+ yrs Drawing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK HEADER -->
+<section id="work" style="padding-top: 7rem; padding-bottom: 0; background: var(--ink);">
+  <div class="section-header" style="padding: 0 0 5rem;">
+    <span class="section-number">02</span>
+    <span class="section-title" style="color: rgba(245,242,238,0.4);">Selected Work</span>
+    <div class="section-rule" style="background: rgba(245,242,238,0.1);"></div>
+  </div>
+</section>
+
+<!-- WORK GRID -->
+<div class="work-grid">
+
+  <!-- CAST.INC -->
+  <div class="project-card reveal" onclick="openModal('cast')">
+    <div class="project-visual p-cast">
+      <!-- REPLACE: <img src="images/cast-hero.jpg" alt="Cast.inc brand identity"> -->
+<img src="images/cast-hero.jpg" alt="Cast.inc brand identity">
+    </div>
+    <div class="project-overlay">
+      <div class="project-tags">
+        <span class="project-tag">Brand Identity</span>
+        <span class="project-tag">Web Design</span>
+        <span class="project-tag">Japan</span>
+      </div>
+      <h3 class="project-name">Cast.inc</h3>
+      <p class="project-sub">Heat Sensor Technology — Kumamoto, Japan</p>
+      <p class="project-cta">View Case Study →</p>
+    </div>
+  </div>
+
+  <!-- SKET-AI -->
+  <div class="project-card reveal" onclick="openModal('sket')">
+    <div class="project-visual p-sket">
+      <img src="images/sket-hero.jpg" alt="Sket-AI brand identity">
+    </div>
+    <div class="project-overlay">
+      <div class="project-tags">
+        <span class="project-tag">Brand Identity</span>
+        <span class="project-tag">Brand Document</span>
+        <span class="project-tag">Web Design</span>
+      </div>
+      <h3 class="project-name">Sket-AI</h3>
+      <p class="project-sub">AI Solutions Startup — Fukuoka, Japan</p>
+      <p class="project-cta">View Case Study →</p>
+    </div>
+  </div>
+
+  <!-- SQUIGL -->
+  <div class="project-card reveal" onclick="openModal('squigl')">
+    <div class="project-visual p-squigl">
+      <img src="images/squigl-hero.jpg" alt="Squigl pet portrait brand">
+    </div>
+    <div class="project-overlay">
+      <div class="project-tags">
+        <span class="project-tag">Product Brand</span>
+        <span class="project-tag">Logo Design</span>
+        <span class="project-tag">Identity System</span>
+      </div>
+      <h3 class="project-name">Squigl</h3>
+      <p class="project-sub">Pet Product Brand — Japan | USA</p>
+      <p class="project-cta">View Case Study →</p>
+    </div>
+  </div>
+
+  <!-- BRINDA'S -->
+  <div class="project-card reveal" onclick="openModal('brinda')">
+    <div class="project-visual p-brinda">
+      <img src="images/brinda-hero.jpg" alt="Brinda's Salon branding">
+    </div>
+    <div class="project-overlay">
+      <div class="project-tags">
+        <span class="project-tag">Logo Design</span>
+        <span class="project-tag">Print</span>
+        <span class="project-tag">Branding</span>
+      </div>
+      <h3 class="project-name">Brinda's Salon &amp; Spa</h3>
+      <p class="project-sub">Salon &amp; Beauty — Bangalore, India</p>
+      <p class="project-cta">View Case Study →</p>
+    </div>
+  </div>
+
+  <!-- DETROIT -->
+  <div class="project-card full-width reveal" onclick="openModal('detroit')">
+    <div class="project-visual p-detroit">
+      <img src="images/detroit-hero.jpg" alt="Recovery Park Detroit master plan">
+    </div>
+    <div class="project-overlay">
+      <div class="project-tags">
+        <span class="project-tag">Urban Branding</span>
+        <span class="project-tag">Master Plan</span>
+        <span class="project-tag">Brand Design</span>
+      </div>
+      <h3 class="project-name">Recovery Park, Detroit</h3>
+      <p class="project-sub">Urban Revitalization &amp; Neighborhood Branding — Poletown, Detroit, USA</p>
+      <p class="project-cta">View Case Study →</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <span class="section-title">Skills &amp; Tools</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <h3>Adobe Creative Suite</h3>
+      <ul class="skill-list">
+        <li>Illustrator</li>
+        <li>Photoshop</li>
+        <li>InDesign</li>
+        <li>Figma</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Design &amp; 3D</h3>
+      <ul class="skill-list">
+        <li>Google SketchUp</li>
+        <li>Lumion (Rendering)</li>
+        <li>AutoCAD</li>
+        <li>ClipStudio Paint</li>
+        <li>Wix (Web)</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>AI &amp; Digital Tools</h3>
+      <ul class="skill-list">
+        <li>Chatbase</li>
+        <li>Make (Automation)</li>
+        <li>Notion</li>
+        <li>Carrd</li>
+        <li>Microsoft Office</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Analog &amp; Traditional</h3>
+      <ul class="skill-list">
+        <li>Pencil &amp; Ink Drawing (30+ yrs)</li>
+        <li>Copic Markers</li>
+        <li>Coloured Pencils</li>
+        <li>Manga &amp; Illustration</li>
+        <li>Concept Sketching</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Design Disciplines</h3>
+      <ul class="skill-list">
+        <li>Brand Identity</li>
+        <li>Logo Design</li>
+        <li>Print &amp; Collateral</li>
+        <li>Urban &amp; Environmental Design</li>
+        <li>Web Design</li>
+        <li>Product Branding</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h3>Languages</h3>
+      <ul class="skill-list">
+        <li>English (Native fluency)</li>
+        <li>Japanese (Conversational)</li>
+        <li>Tamil</li>
+        <li>Kannada</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ARTWORK -->
+<section class="artwork" id="artwork">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <span class="section-title">Original Artwork</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="artwork-intro reveal">
+    <p>Design starts with a <span>pencil on paper.</span> Here is where mine began — and continues.</p>
+  </div>
+  <div class="artwork-grid reveal">
+    <div class="artwork-cell art-manga">
+      <img src="images/art-manga.jpg" alt="Manga illustration">
+      <span class="artwork-cell-label">Manga / Illustration</span>
+    </div>
+    <div class="artwork-cell art-ink">
+      <img src="images/art-ink.jpg" alt="Ink drawing">
+      <span class="artwork-cell-label">Ink Drawing</span>
+    </div>
+    <div class="artwork-cell art-copic">
+      <img src="images/art-copic.jpg" alt="Copic marker artwork">
+      <span class="artwork-cell-label">Copic Markers</span>
+    </div>
+    <div class="artwork-cell art-pencil">
+      <img src="images/art-pencil.jpg" alt="Pencil sketch">
+      <span class="artwork-cell-label">Pencil Sketch</span>
+    </div>
+    <div class="artwork-cell art-digital">
+      <img src="images/art-digital.jpg" alt="Digital artwork">
+      <span class="artwork-cell-label">Digital Art</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-header reveal">
+    <span class="section-number">05</span>
+    <span class="section-title">Get in Touch</span>
+    <div class="section-rule"></div>
+  </div>
+  <h2 class="contact-big reveal">Let's build<br>something <em>great.</em></h2>
+  <div class="contact-links reveal">
+    <a href="/cdn-cgi/l/email-protection#60190f151220050d01090c4e030f0d" class="contact-link"><span>✉</span> <span class="__cf_email__" data-cfemail="add4c2d8dfedc8c0ccc4c183cec2c0">[email&#160;protected]</span></a>
+    <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank"><span>in</span> LinkedIn</a>
+    <a href="https://instagram.com/squigl" class="contact-link" target="_blank"><span>◎</span> @Squigl</a>
+    <a href="https://instagram.com/sket_ai" class="contact-link" target="_blank"><span>◎</span> @Sket_AI</a>
+    <div class="contact-flag">
+      <strong>Available for remote work worldwide</strong>
+      Fukuoka Prefecture, Japan
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Adi — Brand &amp; Visual Designer</p>
+  <p>Fukuoka, Japan &nbsp;·&nbsp; Available Worldwide</p>
+</footer>
+
+<!-- ============================================
+     LIGHTBOX MODAL
+============================================ -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-inner">
+
+    <!-- LEFT: Gallery -->
+    <div class="modal-gallery">
+      <div class="modal-main-img" id="modal-main-img">
+        <!-- Image or placeholder rendered by JS -->
+      </div>
+      <div class="modal-thumbs" id="modal-thumbs">
+        <!-- Thumbnails rendered by JS -->
+      </div>
+    </div>
+
+    <!-- RIGHT: Case Study Info -->
+    <div class="modal-info">
+      <button class="modal-close" onclick="closeModal()">Close</button>
+      <p class="modal-project-label" id="modal-label"></p>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <p class="modal-subtitle" id="modal-subtitle"></p>
+      <div class="modal-tags" id="modal-tags"></div>
+
+      <div class="modal-section">
+        <p class="modal-section-title">The Challenge</p>
+        <p id="modal-challenge"></p>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-title">My Approach</p>
+        <p id="modal-approach"></p>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-title">Deliverables</p>
+        <div class="modal-deliverables" id="modal-deliverables"></div>
+      </div>
+
+      <div class="modal-nav">
+        <button class="modal-nav-btn" id="modal-prev" onclick="navigateModal(-1)">← Previous</button>
+        <button class="modal-nav-btn" id="modal-next" onclick="navigateModal(1)">Next →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ============================================
+// PROJECT DATA - PORTFOLIO SETUP INSTRUCTIONS
+// ============================================
+// 
+// WHAT'S NEW IN THIS VERSION:
+// ✅ Video support added - you can now add .mp4 videos in place of images
+// ✅ Japanese bilingual text for CAST.inc - shows your Japanese capability
+// ✅ Example file paths provided - just replace with your actual files
+//
+// HOW TO ADD YOUR IMAGES:
+// 1. Create an /images/ folder in the same directory as this HTML file
+// 2. Add your images with these naming conventions:
+//    - cast-1.jpg, cast-2.jpg, cast-3.jpg
+//    - sket-1.jpg, sket-2.jpg, sket-3.jpg, sket-4.jpg
+//    - squigl-1.jpg, squigl-2.jpg, squigl-3.jpg
+//    - brinda-1.jpg, brinda-2.jpg, brinda-3.jpg
+//    - detroit-1.jpg, detroit-2.jpg, detroit-3.jpg, detroit-4.jpg
+// 3. The paths are already set in the code below - just add the images!
+//
+// HOW TO ADD VIDEOS:
+// 1. Create a /videos/ folder in the same directory as this HTML file
+// 2. Add your 30-second overview videos:
+//    - cast-overview.mp4 (for CAST.inc website overview)
+//    - squigl-overview.mp4 (for Squigl product/Instagram overview)
+// 3. Videos will autoplay muted when the modal opens (best practice)
+// 4. To add a video: { src: 'videos/filename.mp4', label: 'Description', type: 'video' }
+//
+// JAPANESE TEXT:
+// - Currently added to CAST.inc project only (most natural fit)
+// - Demonstrates bilingual capability for Japanese clients
+// - Shows as "日本語版：" after the English text
+// - To add to other projects: add challenge_ja and approach_ja fields
+//
+// FILE STRUCTURE:
+// your-portfolio/
+// ├── index.html (this file)
+// ├── images/
+// │   ├── cast-1.jpg
+// │   ├── cast-2.jpg
+// │   └── ... (all your project images)
+// └── videos/
+//     ├── cast-overview.mp4
+//     └── squigl-overview.mp4
+//
+// See PORTFOLIO_SETUP_GUIDE.md for complete deployment instructions!
+// ============================================
+
+const projects = {
+  cast: {
+    id: 'cast',
+    label: 'Brand Identity · Web Design · Japan',
+    title: 'Cast.inc',
+    subtitle: 'Heat Sensor Technology — Kumamoto, Japan',
+    tags: ['Brand Identity', 'Visual System', 'Web Design', 'Japanese Market'],
+    bgClass: 'p-cast',
+    // EXAMPLE IMAGE/VIDEO PATHS - Replace these with your actual file paths
+    // Images should be in the /images/ folder, videos in /videos/ folder
+    images: [
+      { src: 'images/cast-1.jpg', label: 'Logo & Brand Mark', thumb: 'images/cast-1-thumb.jpg' },
+      { src: 'images/cast-2.jpg', label: 'Visual System', thumb: 'images/cast-2-thumb.jpg' },
+      { src: 'videos/cast-overview.mp4', label: 'Website Overview', type: 'video', thumb: 'images/cast-video-thumb.jpg' },
+    ],
+    // ENGLISH VERSION
+    challenge: 'Cast.inc needed to reposition itself as a credible, modern technology company while respecting the academic origins of its founder — a professor from Kumamoto University. The existing identity lacked cohesion and did not reflect the precision of the technology.',
+    // JAPANESE VERSION (showing bilingual capability for Japanese clients)
+    challenge_ja: '課題：Cast.incは、創業者である熊本大学教授の学術的背景を尊重しつつ、信頼性の高い現代的なテクノロジー企業として再定義する必要がありました。既存のアイデンティティには一貫性がなく、技術の精度を反映していませんでした。',
+    
+    approach: 'I led the complete rebrand from the ground up: starting with brand strategy, then developing the visual identity, and finally designing the web presence. The approach balanced Japanese restraint with enough modernity to appeal to both local and international markets.',
+    approach_ja: 'アプローチ：ブランド戦略から始め、ビジュアルアイデンティティを開発し、最終的にWebプレゼンスをデザインするという、ゼロからの完全なリブランディングをリードしました。日本的な控えめさと、国内外の市場に訴求する十分なモダンさのバランスを取りました。',
+    
+    deliverables: ['Logo & Brand Mark', 'Full Visual Identity System', 'Brand Colour & Typography Guidelines', 'Website Design', 'Digital Asset Package'],
+  },
+
+  sket: {
+    id: 'sket',
+    label: 'Brand Identity · Web · AI Startup',
+    title: 'Sket-AI',
+    subtitle: 'AI Solutions Startup — Fukuoka, Japan',
+    tags: ['Brand Strategy', 'Brand Identity', 'Brand Document', 'Web Design', 'Instagram'],
+    bgClass: 'p-sket',
+    // TO ADD YOUR IMAGES: Replace 'null' with 'images/filename.jpg'
+    // Example: { src: 'images/sket-logo.jpg', label: 'Logo & Mark' }
+    images: [
+      { src: 'images/sket-1.jpg', label: 'Logo & Mark', thumb: 'images/sket-1-thumb.jpg' },
+      { src: 'images/sket-2.jpg', label: 'Brand Document', thumb: 'images/sket-2-thumb.jpg' },
+      { src: 'videos/sket-website.mp4', label: 'Website Walkthrough', type: 'video', thumb: 'images/sket-website-thumb.jpg' },
+    ],
+    challenge: 'Sket-AI needed a brand that could communicate the accessibility of AI tools to small and medium businesses in Fukuoka — without looking cold or overly technical. The brand had to feel approachable, local, and modern at the same time.',
+    approach: 'Built the brand identity system from scratch, anchored by a black and amber palette that signals precision and energy. Developed a full brand document covering usage guidelines, tone of voice, and visual rules. Designed and built the website end-to-end, then extended the identity to Instagram.',
+    deliverables: ['Logo & Brand Mark', 'Brand Strategy Document', 'Colour & Typography System', 'Website (designed & built)', 'Instagram Brand Presence'],
+  },
+
+  squigl: {
+    id: 'squigl',
+    label: 'Product Brand · Identity System',
+    title: 'Squigl',
+    subtitle: 'Pet Product Brand — Japan|USA',
+    tags: ['Product Branding', 'Logo Design', 'Identity System', 'Instagram', 'Illustration'],
+    bgClass: 'p-squigl',
+    // EXAMPLE IMAGE/VIDEO PATHS
+    images: [
+      { src: 'videos/squigl-1.mp4', label: 'Brand animation', type: 'video', thumb: 'images/squigl-1-thumb.jpg' },
+      { src: 'images/squigl-2.jpg', label: 'Brand Identity', thumb: 'images/squigl-2-thumb.jpg' },
+      { src: 'videos/squigl-overview.mp4', label: 'Art process', type: 'video', thumb: 'images/squigl-overview-thumb.jpg' },
+      { src: 'images/squigl-3.jpg', label: 'Sample Pet Portraits', thumb: 'images/squigl-3-thumb.jpg' },
+    ],
+    challenge: 'Squigl is a personal pet portrait brand combining hand-drawn and digital art. The challenge was to create an identity that felt warm and handcrafted without losing professionalism — and that stood out in a saturated market of pet art accounts.',
+    approach: 'The identity is built around the squiggly line as a brand signature — a direct nod to the hand-drawn nature of the work. A warm beige palette with black line work keeps it clean and premium. The brand was developed across logo, product design, and a full Instagram presence.',
+    deliverables: ['Logo & Brand Mark', 'Identity System', 'Packaging Concept', 'Instagram Brand Presence', 'Product Design'],
+  },
+
+  brinda: {
+    id: 'brinda',
+    label: 'Logo · Print · Collateral',
+    title: "Brinda's Salon & Spa",
+    subtitle: 'Salon & Beauty — Bangalore, India',
+    tags: ['Logo Design', 'Flyer Design', 'Menu Design', 'Print Collateral', 'Branding'],
+    bgClass: 'p-brinda',
+    // ADD YOUR IMAGES HERE
+    images: [
+      { src: 'images/brinda-1.jpg', label: 'Logo Design', thumb: 'images/brinda-1-thumb.jpg' },
+      { src: 'images/brinda-2.jpg', label: 'Menu Design', thumb: 'images/brinda-2-thumb.jpg' },
+      { src: 'videos/brinda-website.mp4', label: 'Brand Identity', type: 'video', thumb: 'images/brinda-3-thumb.jpg' },
+    ],
+    challenge: "Brinda's Salon & Spa needed a complete graphic design package to launch and market the business. The brand had to feel premium and feminine while appealing to a broad Bangalore clientele.",
+    approach: 'Designed a full brand identity system starting with the logo, then extended it across all print touchpoints. The palette of pink, white, and black was selected to feel elegant without being overly niche. Each print piece was designed to work cohesively as a suite.',
+    deliverables: ['Logo Design', 'Flyer Design', 'Menu Design', 'Brand Colour & Typography', 'Print-Ready Artwork Files'],
+  },
+
+  detroit: {
+    id: 'detroit',
+    label: 'Urban Branding · Master Planning',
+    title: 'Recovery Park',
+    subtitle: 'Neighborhood Revitalization — Poletown, Detroit, USA',
+    tags: ['Urban Branding', 'Master Planning', 'Brand Identity', 'Environmental Design', 'Academic Project'],
+    bgClass: 'p-detroit',
+    // ADD YOUR IMAGES HERE
+    images: [
+      { src: 'images/detroit-1.jpg', label: 'Master Plan', thumb: 'images/detroit-1-thumb.jpg' },
+      { src: 'images/detroit-2.jpg', label: 'Brand Identity', thumb: 'images/detroit-2-thumb.jpg' },
+      { src: 'images/detroit-3.jpg', label: 'Visual System', thumb: 'images/detroit-3-thumb.jpg' },
+      { src: 'images/detroit-4.jpg', label: 'Renders', thumb: 'images/detroit-4-thumb.jpg' },
+    ],
+    challenge: 'Poletown in Detroit is a historically troubled neighborhood that needed a comprehensive revitalization strategy — combining urban planning with a new community identity to attract investment, residents, and hope. The project required thinking across both architecture and branding simultaneously.',
+    approach: 'As part of my M.Arch Urban Design programme, I developed the full master plan for the neighbourhood alongside a brand identity system called Recovery Park. The brand was designed to communicate renewal and community strength, and was integrated into signage, environmental graphics, and urban design elements throughout the plan.',
+    deliverables: ['Neighbourhood Master Plan', 'Brand Identity System', 'Environmental Signage Design', 'Community Brand Guidelines', 'Urban Design Renders & Visualisations'],
+  },
+};
+
+const projectOrder = ['cast', 'sket', 'squigl', 'brinda', 'detroit'];
+let currentProject = null;
+let currentImageIndex = 0;
+
+function openModal(projectId) {
+  currentProject = projectId;
+  currentImageIndex = 0;
+  renderModal();
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+function renderModal() {
+  const p = projects[currentProject];
+
+  document.getElementById('modal-label').textContent = p.label;
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-subtitle').textContent = p.subtitle;
+  
+  // Challenge section - show Japanese version if available (bilingual display)
+  let challengeText = p.challenge;
+  if (p.challenge_ja) {
+    challengeText += '<br><br><span style="color: var(--amber); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;">日本語版：</span><br>' + p.challenge_ja;
+  }
+  document.getElementById('modal-challenge').innerHTML = challengeText;
+  
+  // Approach section - show Japanese version if available (bilingual display)
+  let approachText = p.approach;
+  if (p.approach_ja) {
+    approachText += '<br><br><span style="color: var(--amber); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;">日本語版：</span><br>' + p.approach_ja;
+  }
+  document.getElementById('modal-approach').innerHTML = approachText;
+
+  // Tags
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = p.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+
+  // Deliverables
+  const delEl = document.getElementById('modal-deliverables');
+  delEl.innerHTML = p.deliverables.map(d => `<span class="modal-deliverable">${d}</span>`).join('');
+
+  // Main image
+  renderMainImage();
+
+  // Thumbnails
+  renderThumbs();
+
+  // Nav
+  const idx = projectOrder.indexOf(currentProject);
+  document.getElementById('modal-prev').style.opacity = idx === 0 ? '0.2' : '1';
+  document.getElementById('modal-next').style.opacity = idx === projectOrder.length - 1 ? '0.2' : '1';
+}
+
+function renderMainImage() {
+  const p = projects[currentProject];
+  const img = p.images[currentImageIndex];
+  const mainEl = document.getElementById('modal-main-img');
+
+  if (img.src) {
+    // Check if this is a video file
+    if (img.type === 'video' || img.src.endsWith('.mp4') || img.src.endsWith('.webm')) {
+      mainEl.innerHTML = `
+        <video controls autoplay muted loop playsinline style="width:100%; height:100%; object-fit:contain;">
+          <source src="${img.src}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>`;
+    } else {
+      mainEl.innerHTML = `<img src="${img.src}" alt="${img.label}">`;
+    }
+  } else {
+    mainEl.innerHTML = `
+      <div class="modal-img-placeholder">
+        <div class="modal-img-bg ${p.bgClass}"></div>
+        <div class="modal-img-placeholder-text">
+          Add image here:<br>
+          <strong style="color:rgba(255,255,255,0.4)">images/${p.id}-${currentImageIndex+1}.jpg</strong><br>
+          <span style="color:rgba(255,255,255,0.15)">${img.label}</span>
+        </div>
+      </div>`;
+  }
+}
+
+function renderThumbs() {
+  const p = projects[currentProject];
+  const thumbsEl = document.getElementById('modal-thumbs');
+  thumbsEl.innerHTML = p.images.map((img, i) => `
+    <div class="modal-thumb ${i === currentImageIndex ? 'active' : ''} ${p.bgClass}" onclick="selectImage(${i})">
+${img.thumb
+          ? `<img src="${img.thumb}" alt="${img.label}">`
+          : img.src
+            ? `<img src="${img.src}" alt="${img.label}">`
+            : `<div class="modal-thumb-placeholder"><span class="modal-thumb-label">${img.label}</span></div>`
+        }
+    </div>
+  `).join('');
+}
+
+function selectImage(idx) {
+  currentImageIndex = idx;
+  renderMainImage();
+  renderThumbs();
+}
+
+function navigateModal(direction) {
+  const idx = projectOrder.indexOf(currentProject);
+  const newIdx = idx + direction;
+  if (newIdx >= 0 && newIdx < projectOrder.length) {
+    currentProject = projectOrder[newIdx];
+    currentImageIndex = 0;
+    renderModal();
+  }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('modal').classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowRight') navigateModal(1);
+  if (e.key === 'ArrowLeft') navigateModal(-1);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Nav glass on scroll
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.style.background = 'rgba(245,242,238,0.92)';
+    nav.style.backdropFilter = 'blur(12px)';
+    nav.style.boxShadow = '0 1px 0 rgba(0,0,0,0.03)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+    nav.style.boxShadow = 'none';
+  }
+});
+</script>
+</body>
+</html>
