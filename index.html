@@ -860,6 +860,94 @@
   }
   .modal-nav-btn:hover { color: var(--amber); }
 
+  /* IFRAME / LINK PREVIEW CARDS */
+  .modal-embed-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-embed-wrap iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    display: block;
+    background: #0a0806;
+  }
+  .modal-embed-bar {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: rgba(20,18,16,0.95);
+    border-top: 1px solid rgba(200,135,58,0.2);
+  }
+  .modal-embed-bar span {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,242,238,0.35);
+    font-family: 'Syne', sans-serif;
+  }
+  .modal-embed-bar a {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: opacity 0.2s;
+  }
+  .modal-embed-bar a:hover { opacity: 0.7; }
+
+  /* Fallback card — shown if iframe is blocked by the host site */
+  .modal-link-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .modal-link-card:hover { background: rgba(200,135,58,0.04); }
+  .modal-link-card-thumb {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border: 1px solid rgba(200,135,58,0.15);
+    display: block;
+  }
+  .modal-link-card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,242,238,0.3);
+  }
+  .modal-link-card-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   /* ANIMATIONS */
   @keyframes fadeIn { to { opacity: 1; } }
   @keyframes slideUp {
@@ -1314,12 +1402,10 @@ const projects = {
     subtitle: 'AI Solutions Startup — Fukuoka, Japan',
     tags: ['Brand Strategy', 'Brand Identity', 'Brand Document', 'Web Design', 'Instagram'],
     bgClass: 'p-sket',
-    // TO ADD YOUR IMAGES: Replace 'null' with 'images/filename.jpg'
-    // Example: { src: 'images/sket-logo.jpg', label: 'Logo & Mark' }
     images: [
-      { src: 'images/sket-1.jpg', label: 'Logo & Mark', thumb: 'images/sket-1-thumb.jpg' },
+      { src: 'SKET-AI-Brand-Kit.html', label: 'Brand Kit', type: 'brandkit', thumb: 'images/sket-brandkit-thumb.jpg', url: 'SKET-AI-Brand-Kit.html' },
+      { src: 'https://sketai.jp/', label: 'Live Website', type: 'website', thumb: 'images/sket-website-thumb.jpg', url: 'https://sketai.jp/' },
       { src: 'images/sket-2.jpg', label: 'Brand Document', thumb: 'images/sket-2-thumb.jpg' },
-      { src: 'videos/sket-website.mp4', label: 'Website Walkthrough', type: 'video', thumb: 'images/sket-website-thumb.jpg' },
     ],
     challenge: 'Sket-AI needed a brand that could communicate the accessibility of AI tools to small and medium businesses in Fukuoka — without looking cold or overly technical. The brand had to feel approachable, local, and modern at the same time.',
     approach: 'Built the brand identity system from scratch, anchored by a black and amber palette that signals precision and energy. Developed a full brand document covering usage guidelines, tone of voice, and visual rules. Designed and built the website end-to-end, then extended the identity to Instagram.',
@@ -1450,7 +1536,44 @@ function renderMainImage() {
   const img = p.images[currentImageIndex];
   const mainEl = document.getElementById('modal-main-img');
 
-  if (img.src) {
+  if (img.type === 'website' || img.type === 'brandkit') {
+    const isExternal = img.url && img.url.startsWith('http');
+    const target = isExternal ? '_blank' : '_blank';
+    const urlLabel = isExternal ? img.url.replace(/^https?:\/\//, '') : img.label;
+
+    // Build the embed with iframe + fallback detection
+    const wrapperId = 'embed-wrap-' + currentImageIndex;
+    const fallbackId = 'embed-fallback-' + currentImageIndex;
+    const iframeId = 'embed-iframe-' + currentImageIndex;
+
+    const thumbSrc = img.thumb ? `<img class="modal-link-card-thumb" src="${img.thumb}" alt="${img.label}" onerror="this.style.display='none'">` : '';
+
+    mainEl.innerHTML = `
+      <div class="modal-embed-wrap" id="${wrapperId}">
+        <iframe
+          id="${iframeId}"
+          src="${img.url}"
+          title="${img.label}"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          loading="lazy"
+          onload="checkEmbedLoaded('${iframeId}','${fallbackId}')"
+          onerror="showEmbedFallback('${fallbackId}','${iframeId}')"
+        ></iframe>
+        <div class="modal-embed-bar">
+          <span>${urlLabel}</span>
+          <a href="${img.url}" target="${target}" rel="noopener noreferrer">Open in new tab ↗</a>
+        </div>
+      </div>
+      <a class="modal-link-card" id="${fallbackId}" href="${img.url}" target="${target}" rel="noopener noreferrer" style="display:none;">
+        ${thumbSrc}
+        <span class="modal-link-card-label">${img.label}</span>
+        <span class="modal-link-card-cta">View ${img.type === 'website' ? 'Live Site' : 'Brand Kit'} ↗</span>
+      </a>`;
+
+    // Delayed iframe check — some sites load but are X-Frame blocked (blank doc)
+    setTimeout(() => checkEmbedLoaded(iframeId, fallbackId), 2500);
+
+  } else if (img.src) {
     // Check if this is a video file
     if (img.type === 'video' || img.src.endsWith('.mp4') || img.src.endsWith('.webm')) {
       mainEl.innerHTML = `
@@ -1474,19 +1597,48 @@ function renderMainImage() {
   }
 }
 
+function checkEmbedLoaded(iframeId, fallbackId) {
+  const iframe = document.getElementById(iframeId);
+  const fallback = document.getElementById(fallbackId);
+  if (!iframe || !fallback) return;
+  try {
+    // If contentDocument is accessible and empty body, iframe was blocked
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    if (!doc || doc.body === null || doc.body.innerHTML.trim() === '') {
+      showEmbedFallback(fallbackId, iframeId);
+    }
+  } catch (e) {
+    // Cross-origin block: this means the site DID load (good!) — keep iframe visible
+    // Only show fallback if the iframe itself errored (caught by onerror)
+  }
+}
+
+function showEmbedFallback(fallbackId, iframeId) {
+  const iframe = document.getElementById(iframeId);
+  const fallback = document.getElementById(fallbackId);
+  const wrap = iframe && iframe.closest('.modal-embed-wrap');
+  if (wrap) wrap.style.display = 'none';
+  if (fallback) fallback.style.display = 'flex';
+}
+
 function renderThumbs() {
   const p = projects[currentProject];
   const thumbsEl = document.getElementById('modal-thumbs');
-  thumbsEl.innerHTML = p.images.map((img, i) => `
-    <div class="modal-thumb ${i === currentImageIndex ? 'active' : ''} ${p.bgClass}" onclick="selectImage(${i})">
+  thumbsEl.innerHTML = p.images.map((img, i) => {
+    const badge = (img.type === 'website') ? '<span style="position:absolute;top:4px;right:4px;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--amber);color:#fff;padding:2px 5px;font-family:\'Syne\',sans-serif;font-weight:700;border-radius:1px;">SITE</span>'
+                : (img.type === 'brandkit') ? '<span style="position:absolute;top:4px;right:4px;font-size:0.45rem;letter-spacing:0.1em;text-transform:uppercase;background:rgba(200,135,58,0.6);color:#fff;padding:2px 5px;font-family:\'Syne\',sans-serif;font-weight:700;border-radius:1px;">KIT</span>'
+                : '';
+    return `
+    <div class="modal-thumb ${i === currentImageIndex ? 'active' : ''} ${p.bgClass}" onclick="selectImage(${i})" style="position:relative;">
 ${img.thumb
-          ? `<img src="${img.thumb}" alt="${img.label}">`
-          : img.src
-            ? `<img src="${img.src}" alt="${img.label}">`
-            : `<div class="modal-thumb-placeholder"><span class="modal-thumb-label">${img.label}</span></div>`
-        }
-    </div>
-  `).join('');
+        ? `<img src="${img.thumb}" alt="${img.label}">`
+        : img.src
+          ? `<img src="${img.src}" alt="${img.label}">`
+          : `<div class="modal-thumb-placeholder"><span class="modal-thumb-label">${img.label}</span></div>`
+      }
+      ${badge}
+    </div>`;
+  }).join('');
 }
 
 function selectImage(idx) {
